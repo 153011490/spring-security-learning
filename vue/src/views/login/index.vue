@@ -21,6 +21,7 @@
 </template>
 
 <script>
+    import login from '@/api/login'
     export default {
         data() {
             return {
@@ -32,7 +33,12 @@
         },
         methods: {
             handleLogin() {
-                console.log(this.loginForm.username);
+                var that = this;
+                login(that.loginForm).then(res=>{
+                    console.log(res);
+                }).catch(err=>{
+                    console.log(err);
+                });
             }
         }
     }

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Spring Security</title>
+    <script src="https://cdn.staticfile.org/jquery/1.12.3/jquery.min.js"></script>
+</head>
+<body>
+ <div align="center">
+     <h1>Spring Security</h1>
+     <form action="/login" method="post">
+         <span>用户名称</span><input type="text" name="username" /> <br>
+         <span>用户密码</span><input type="password" name="password" /> <br>
+         <input type="submit" value="登陆">
+     </form>
+ </div>
+<script>
+
+    function login() {
+        var username = $("#username").val();
+        var password = $("#password").val();
+        if (username === "" || password === "") {
+            alert('用户名或密码不能为空');
+            return;
+        }
+        $.ajax({
+            type: "POST",
+            url: "/login",
+            data: {
+                "uname": username,
+                "pword": password
+            },
+            success: function (json) {
+                if(json.isok){
+                    location.href = json.data;
+                }else{
+                    alert(json.message)
+                }
+
+            },
+            error: function (e) {
+                console.log(e);
+            }
+        });
+    }
+</script>
+
+</body>
+</html>
